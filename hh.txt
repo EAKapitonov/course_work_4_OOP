@@ -1,0 +1,58 @@
+{
+	'id': '78000628',
+	'premium': False,
+	'name': 'Senior Python Developer',
+	'department': None,
+	'has_test': False,
+	'response_letter_required': False,
+	'area': {
+			'id': '1',
+			'name': 'Москва',
+			'url': 'https://api.hh.ru/areas/1'
+		  },
+	'salary': {
+			'from': 250000,
+			'to': None,
+			'currency': 'RUR',
+			'gross': False
+		    },
+	'type': {
+			'id': 'open',
+			'name': 'Открытая'
+		  },
+	'address': None,
+	'response_url': None,
+	'sort_point_distance': None,
+	'published_at': '2023-04-06T15:46:22+0300',
+	'created_at': '2023-04-06T15:46:22+0300',
+	'archived': False,
+	'apply_alternate_url': 'https://hh.ru/applicant/vacancy_response?vacancyId=78000628',
+	'insider_interview': None,
+	'url': 'https://api.hh.ru/vacancies/78000628?host=hh.ru',
+	'adv_response_url': None,
+	'alternate_url': 'https://hh.ru/vacancy/78000628',
+	'relations': [],
+	'employer': {
+			'id': '1351185',
+			'name': 'Eugene Global Consulting',
+			'url': 'https://api.hh.ru/employers/1351185',
+			'alternate_url': 'https://hh.ru/employer/1351185',
+			'logo_urls': {'original': 'https://hhcdn.ru/employer-logo-original/915081.jpg',
+					  '240': 'https://hhcdn.ru/employer-logo/4101004.jpeg',
+					  '90': 'https://hhcdn.ru/employer-logo/4101003.jpeg'
+                               },
+			'vacancies_url': 'https://api.hh.ru/vacancies?employer_id=1351185',
+			'trusted': True
+			},
+	'snippet': {'requirement': '...<highlighttext>Python</highlighttext> 3. Опыт работы с одним из <highlighttext>Python</highlighttext> веб-фреймворков: Django, Flask, Tornado, FastAPI или аналогичных. 							Понимание асинхронности в <highlighttext>Python</highlighttext>. ', 'responsibility': 'Разработка бэкэнд сервиса (Django+GraphQL): Разработка бизнес-логики 									(Python+FastAPI+SQLAlchemy): Разработка интеграционных сервисов с маркетплейсами (FastAPI): Разработка партнерской API (FastAPI):'},
+	'contacts': None,
+	'schedule': None,
+	'working_days': [],
+	'working_time_intervals': [],
+	'working_time_modes': [],
+	'accept_temporary': False,
+	'professional_roles': [{'id': '104',
+					        'name': 'Руководитель группы разработки'
+				          }],
+	'accept_incomplete_resumes': False
+    }
