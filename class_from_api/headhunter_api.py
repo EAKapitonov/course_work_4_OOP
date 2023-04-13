@@ -28,28 +28,30 @@ class HeadHunter(ApiVacancy):
             print("Указанная страна не найдено, введите другую страну")
             arent_area = input()
             self.__init__(text, parent_area)
+        self.data_from_csv_list = []
 
-
-    def import_vacancy(self):
+    def import_vacancy_from_api(self):
         """
         Метод получения данных через API по указанным параметрам
         """
         list_data_dict = []
         for i in range(1, 11):
             page = i
-            param = {'text': self.text,  # Переданное значение ищется в полях вакансии, указанных в параметре search_field
+            param = {'text': self.text,
+                     # Переданное значение ищется в полях вакансии, указанных в параметре search_field
                      'parent_id': self.parent_area,  # Код страны.
                      'page': page,  # Параметры пагинации. Параметр per_page ограничен значением в 100
-                     'per_page': 100  # Параметры пагинации. Параметр per_page ограничен значением в 100. Количество в странице
+                     'per_page': 100
+                     # Параметры пагинации. Параметр per_page ограничен значением в 100. Количество в странице
                      }
             req = requests.get("https://api.hh.ru/vacancies", param)  # Посылаем запрос к API
             data = req.content.decode()  # декодируем ответ чтобы  Кириллица отображалось корректно
             data_dict = json.loads(data)
             list_data_dict.extend(data_dict['items'])
             time.sleep(0.25)
-        data_from_csv_list = []
-        items = {}
+        print(len(list_data_dict))
         for i in range(0, len(list_data_dict)):
+            items = {}
             items["name"] = list_data_dict[i]["name"].translate(str.maketrans({"\u200e": ''}))
             items["url"] = list_data_dict[i]["alternate_url"]
             if list_data_dict[i]["salary"] is not None:
@@ -57,19 +59,50 @@ class HeadHunter(ApiVacancy):
             else:
                 items["salary"] = "Не указан"
             items["id_vacancy"] = list_data_dict[i]["id"]
-            items["employer"]      делаю тут
-            items["employer_url"]
-            data_from_csv_list.append(items)
+            if "emlopyer" in list_data_dict[i].keys():
+                items["employer"] = list_data_dict[i]["emlopyer"]["name"]  # сохранение имени работодателя
+                items["employer_url"] = list_data_dict[i]["emlopyer"][
+                    "alternate_url"]  # сохранение ссылки на карточку работодателя
+            else:
+                items["employer"] = "нет данных"  # сохранение имени работодателя
+                items["employer_url"] = "нет данных"  # сохранение ссылки на карточку работодателя
+            items["requirement"] = list_data_dict[i]['snippet']['requirement']  # сохранение требований к вакансии
+            items["responsibility"] = list_data_dict[i]['snippet']['responsibility']  # сохранение обязанностей вакансии
+            self.data_from_csv_list.append(items)
+
+    def add_to_vacancy(self) -> None:
+        """
+        Метод добавляет данные в класс Вакансии
+        """
+        for i in range(0, len(self.data_from_csv_list)):
+            Vacancy(self.data_from_csv_list[i]['name'], self.data_from_csv_list[i]['url'],
+                    self.data_from_csv_list[i]['salary'], self.data_from_csv_list[i]['id_vacancy'],
+                    self.data_from_csv_list[i]['employer'], self.data_from_csv_list[i]['employer_url'],
+                    self.data_from_csv_list[i]['requirement'], self.data_from_csv_list[i]['responsibility'])
+
+    def write_to_csv(self):
+        """
+        Метод записывает данные с API в файл CSV
+        :return:
+        """
         keys = ['name', 'url', 'salary', 'id_vacancy', 'employer', 'employer_url', 'requirement', 'responsibility']
-        with open('names.csv', 'w', newline='') as csvfile:
+        with open('vacancy.csv', 'w', newline='', encoding='utf-8') as csvfile:
             writer = csv.DictWriter(csvfile, fieldnames=keys)
             writer.writeheader()
-            for i in range(0, len(data_from_csv_list)):
-                writer.writerow(data_from_csv_list[i])
+            for i in range(0, len(self.data_from_csv_list)):
+                writer.writerow(self.data_from_csv_list[i])
+
+    def import_vacansy_from_csv(self):
+        """
+        метод считывает ранее записанные данные в файл csv и
+        добавляет данные в класс Vacancy
+        :return:
+        """
+        pass
 
 
-name, url, salary, id_vacancy, employer, employer_url, requirement, responsibility
-
-
-
-
+gt = HeadHunter('учитель', 'россия')
+gt.import_vacancy_from_api()
+gt.add_to_vacancy()
+print(Vacancy.vacancy_list[1].name)
+print(Vacancy.vacancy_list[1] > Vacancy.vacancy_list[2])

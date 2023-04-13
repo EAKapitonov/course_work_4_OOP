@@ -31,7 +31,7 @@ for i in range(0, len(list_data_dict)):
     data_from_csv_list.append(items)
 print(len(data_from_csv_list))
 keys = ['name', 'url', 'salary', 'id']
-with open('names.csv', 'w', newline='') as csvfile:
+with open('vacancy.csv', 'w', newline='') as csvfile:
     writer = csv.DictWriter(csvfile, fieldnames=keys)
     writer.writeheader()
     for i in range(0, len(data_from_csv_list)):
