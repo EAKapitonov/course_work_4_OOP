@@ -12,21 +12,16 @@ class Vacancy(Vacancy_abc):
     vacancy_list = []
 
     def __init__(self, name, url, salary, id_vacancy, employer, employer_url, requirement, responsibility):
-        self.name = name  # название вакансии
-        self.url = url  # ссылка на  вакансию
-        self.salary = salary  # объявленная зарплата
-        self.id_vacancy = id_vacancy  # id вакансии
-        self.employer = employer  # Название фирмы работодателя
-        self.employer_url = employer_url  # ссылка на карточку работодателя
-        self.requirement = requirement  # требования вакансии к работнику
-        self.responsibility = responsibility  # обязанности должности
+        self._name = name  # название вакансии
+        self._url = url  # ссылка на  вакансию
+        self._salary = salary  # объявленная зарплата
+        self._id_vacancy = id_vacancy  # id вакансии
+        self._employer = employer  # Название фирмы работодателя
+        self._employer_url = employer_url  # ссылка на карточку работодателя
+        self._requirement = requirement  # требования вакансии к работнику
+        self._responsibility = responsibility  # обязанности должности
         Vacancy.vacancy_list.append(self)
 
-    def a(self):
-        """сравнение между вакансиями по зарплате"""
-        pass
-
-    def b(self):
-        """вывести топ 5 вакансий по зарплате """
-        pass
+    @property
+    def
 

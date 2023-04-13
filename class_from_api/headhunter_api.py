@@ -86,23 +86,35 @@ class HeadHunter(ApiVacancy):
         :return:
         """
         keys = ['name', 'url', 'salary', 'id_vacancy', 'employer', 'employer_url', 'requirement', 'responsibility']
-        with open('vacancy.csv', 'w', newline='', encoding='utf-8') as csvfile:
+        with open(f'vacancy.csv', 'w', newline='', encoding='utf-8') as csvfile:
             writer = csv.DictWriter(csvfile, fieldnames=keys)
             writer.writeheader()
             for i in range(0, len(self.data_from_csv_list)):
                 writer.writerow(self.data_from_csv_list[i])
 
-    def import_vacansy_from_csv(self):
+    def import_vacansy_from_csv(self, url_file):
         """
-        метод считывает ранее записанные данные в файл csv и
+        Метод считывает ранее записанные данные в файл csv и
         добавляет данные в класс Vacancy
         :return:
         """
-        pass
+        with open(url_file, 'r', newline='', encoding='utf-8') as csvfile:
+            reader = csv.DictReader(csvfile)
+            print(2)
+            for i in reader:
+                Vacancy(i['name'], i['url'],
+                        i['salary'], i['id_vacancy'],
+                        i['employer'], i['employer_url'],
+                        i['requirement'], i['responsibility'])
 
 
 gt = HeadHunter('учитель', 'россия')
-gt.import_vacancy_from_api()
+print(1)
+# gt.import_vacancy_from_api()
+# gt.write_to_csv()
+# print(3)
+gt.import_vacansy_from_csv("../class_from_api/vacancy.csv")
 gt.add_to_vacancy()
 print(Vacancy.vacancy_list[1].name)
-print(Vacancy.vacancy_list[1] > Vacancy.vacancy_list[2])
+print(Vacancy.vacancy_list[1] < Vacancy.vacancy_list[2])
+print(len(Vacancy.vacancy_list))
