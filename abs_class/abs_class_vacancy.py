@@ -1,77 +1,66 @@
 from abc import ABC, abstractmethod
 
-class Vacancy_abc(ABC):
+
+class VacancyABC(ABC):
     """
     Абстрактный класс для работы с вакансиями
     """
 
     @abstractmethod
-    @property
-    def name(self, ):
+    def name(self):
         """
         Обязывает создать свойство name
         """
         pass
 
-
     @abstractmethod
-    @property
-    def url(self, ):
+    def url(self):
         """
         Обязывает создать свойство url
         """
         pass
 
-
     @abstractmethod
-    @property
-    def salary(self, ):
+    def salary(self):
         """
         Обязывает создать свойство salary
         """
         pass
 
-
     @abstractmethod
-    @property
-    def id_vacancy(self, ):
+    def id_vacancy(self):
         """
         Обязывает создать свойство id_vacancy
         """
         pass
 
     @abstractmethod
-    @property
-    def employer(self, ):
+    def employer(self):
         """
         Обязывает создать свойство employer
         """
         pass
 
     @abstractmethod
-    @property
-    def requirement(self, ):
+    def requirement(self):
         """
         Обязывает создать свойство requirement
         """
         pass
 
     @abstractmethod
-    @property
-    def employer_url(self, ):
+    def employer_url(self):
         """
         Обязывает создать свойство employer_url
         """
         pass
 
     @abstractmethod
-    @property
-    def responsibility(self, ):
+    def responsibility(self):
         """
         Обязывает создать свойство responsibility
         """
         pass
-
 
     def __lt__(self, other):  # определяет поведение оператора сравнения «меньше», <
         if self.salary == "Не указан" or other.salary == "Не указан":
@@ -120,4 +109,3 @@ class Vacancy_abc(ABC):
             return True
         else:
             return False
-
