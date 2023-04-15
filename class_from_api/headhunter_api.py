@@ -49,7 +49,6 @@ class HeadHunter(ApiVacancy):
             data_dict = json.loads(data)
             list_data_dict.extend(data_dict['items'])
             time.sleep(0.25)
-        print(len(list_data_dict))
         for i in range(0, len(list_data_dict)):
             items = {}
             items["name"] = list_data_dict[i]["name"].translate(str.maketrans({"\u200e": ''}))
