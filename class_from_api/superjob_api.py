@@ -1,9 +1,7 @@
 import os
-import pprint
 from abs_class.abs_class_api import ApiVacancy
 import json
 import requests
-import time
 import csv
 from vacancy.vacancy import Vacancy
 
@@ -80,7 +78,11 @@ class SuperJobApi(ApiVacancy):
         """
         Метод добавляет данные в класс Вакансии
         """
-        pass
+        for i in range(0, len(self.data_from_csv_list)):
+            Vacancy(self.data_from_csv_list[i]['name'], self.data_from_csv_list[i]['url'],
+                    self.data_from_csv_list[i]['salary'], self.data_from_csv_list[i]['id_vacancy'],
+                    self.data_from_csv_list[i]['employer'], self.data_from_csv_list[i]['employer_url'],
+                    self.data_from_csv_list[i]['requirement'], self.data_from_csv_list[i]['responsibility'])
 
     def import_vacanсy_from_csv(self, url_file):
         """
@@ -88,9 +90,18 @@ class SuperJobApi(ApiVacancy):
         добавляет данные в класс Vacancy
         :return:
         """
-        pass
+        with open(url_file, 'r', newline='', encoding='utf-8') as csvfile:
+            reader = csv.DictReader(csvfile)
+            print(2)
+            for i in reader:
+                Vacancy(i['name'], i['url'],
+                        i['salary'], i['id_vacancy'],
+                        i['employer'], i['employer_url'],
+                        i['requirement'], i['responsibility'])
 
 
 qw = SuperJobApi("россия", "учитель")
-qw.import_vacancy_from_api()
-qw.write_to_csv()
+#qw.import_vacancy_from_api()
+#qw.write_to_csv()
+qw.import_vacanсy_from_csv("../class_from_api/superjob_vacancy.csv")
+print(len(Vacancy.vacancy_list))
