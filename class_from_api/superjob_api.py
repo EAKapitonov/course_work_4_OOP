@@ -59,10 +59,10 @@ class SuperJobApi(ApiVacancy):
             items = {}
             items["name"] = self.list_data_dict[i]["profession"]
             items["url"] = self.list_data_dict[i]["link"]
-            if self.list_data_dict[i]["payment_from"] is not None:
+            if isinstance(self.list_data_dict[i]["payment_from"], int):
                 items["salary"] = self.list_data_dict[i]["payment_from"]
             else:
-                items["salary"] = "Не указан"
+                items["salary"] = 0
             items["id_vacancy"] = self.list_data_dict[i]["id"]
             if "emlopyer" in self.list_data_dict[i].keys():
                 items["employer"] = self.list_data_dict[i]["client"]["title"]  # сохранение имени работодателя
@@ -84,7 +84,7 @@ class SuperJobApi(ApiVacancy):
                     self.data_from_csv_list[i]['employer'], self.data_from_csv_list[i]['employer_url'],
                     self.data_from_csv_list[i]['requirement'], self.data_from_csv_list[i]['responsibility'])
 
-    def import_vacanсy_from_csv(self, url_file="../class_from_api/superjob_vacancy.csv"):
+    def import_vacanсy_from_csv(self, url_file="./superjob_vacancy.csv"):
         """
         Метод считывает ранее записанные данные в файл csv и
         добавляет данные в класс Vacancy
@@ -92,10 +92,9 @@ class SuperJobApi(ApiVacancy):
         """
         with open(url_file, 'r', newline='', encoding='utf-8') as csvfile:
             reader = csv.DictReader(csvfile)
-            print(2)
             for i in reader:
                 Vacancy(i['name'], i['url'],
-                        i['salary'], i['id_vacancy'],
+                        int(i['salary']), i['id_vacancy'],
                         i['employer'], i['employer_url'],
                         i['requirement'], i['responsibility'])
 

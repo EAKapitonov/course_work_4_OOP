@@ -11,15 +11,16 @@ sj = SuperJobApi(country, text)  # создаем объект класса Supe
 hh.import_vacancy_from_api()  # импортируем данные с API HeadHunter
 print("Импорт с HH завершено удачно")
 sj.import_vacancy_from_api()  # импортируем данные с API SuperJobApi
+print("Импорт с SJ завершено удачно")
 hh.write_to_csv()  # записываем данные в файл csv
 sj.write_to_csv()  # записываем данные в файл csv
 hh.add_to_vacancy()  # создаем объекты класса Vacancy
 print(len(Vacancy.vacancy_list))  # Проверяем создание объектов класса Vacancy, выдоим общее количество
 sj.add_to_vacancy()  # создаем объекты класса Vacancy
 print(len(Vacancy.vacancy_list))  # Проверяем создание объектов класса Vacancy, выдоим общее количество
-hh.import_vacanсy_from_csv("./class_from_api/vacancy.csv")  # импортируем данные с файла csv и создаем объекты класса Vacancy
+hh.import_vacanсy_from_csv("./vacancy.csv")  # импортируем данные с файла csv и создаем объекты класса Vacancy
 print(len(Vacancy.vacancy_list))  # Проверяем создание объектов класса Vacancy, выдоим общее количество
-sj.import_vacanсy_from_csv("./class_from_api/superjob_vacancy.csv")  # импортируем данные с файла csv и создаем объекты класса Vacancy
+sj.import_vacanсy_from_csv("./superjob_vacancy.csv")  # импортируем данные с файла csv и создаем объекты класса Vacancy
 print(len(Vacancy.vacancy_list))  # Проверяем создание объектов класса Vacancy, выдоим общее количество
 
 """
@@ -27,8 +28,8 @@ print(len(Vacancy.vacancy_list))  # Проверяем создание объе
 """
 best_vacancy = Vacancy.vacancy_list[0]
 for i in Vacancy.vacancy_list:
-    if (Vacancy.vacancy_list[i] > best_vacancy) == True:
-        best_vacancy = Vacancy.vacancy_list[i]
-print(f"Лучшая указанная зарплата {best_vacancy.salary}"
+    if i > best_vacancy:
+        best_vacancy = i
+print(f"Лучшая указанная зарплата {best_vacancy.salary} "
       f"Ссылка на зарплату {best_vacancy.url}")
 

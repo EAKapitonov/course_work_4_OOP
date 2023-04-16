@@ -51,12 +51,12 @@ class HeadHunter(ApiVacancy):
             time.sleep(0.25)
         for i in range(0, len(list_data_dict)):
             items = {}
-            items["name"] = list_data_dict[i]["name"].translate(str.maketrans({"\u200e": ''}))
+            items["name"] = list_data_dict[i]["name"]
             items["url"] = list_data_dict[i]["alternate_url"]
-            if list_data_dict[i]["salary"] is not None:
+            if isinstance(list_data_dict[i]["salary"], int):
                 items["salary"] = list_data_dict[i]["salary"]["from"]
             else:
-                items["salary"] = "Не указан"
+                items["salary"] = 0
             items["id_vacancy"] = list_data_dict[i]["id"]
             if "emlopyer" in list_data_dict[i].keys():
                 items["employer"] = list_data_dict[i]["emlopyer"]["name"]  # сохранение имени работодателя
@@ -91,7 +91,7 @@ class HeadHunter(ApiVacancy):
             for i in range(0, len(self.data_from_csv_list)):
                 writer.writerow(self.data_from_csv_list[i])
 
-    def import_vacanсy_from_csv(self, url_file="../class_from_api/vacancy.csv"):
+    def import_vacanсy_from_csv(self, url_file="./vacancy.csv"):
         """
         Метод считывает ранее записанные данные в файл csv и
         добавляет данные в класс Vacancy
@@ -99,9 +99,8 @@ class HeadHunter(ApiVacancy):
         """
         with open(url_file, 'r', newline='', encoding='utf-8') as csvfile:
             reader = csv.DictReader(csvfile)
-            print(2)
             for i in reader:
                 Vacancy(i['name'], i['url'],
-                        i['salary'], i['id_vacancy'],
+                        int(i['salary']), i['id_vacancy'],
                         i['employer'], i['employer_url'],
                         i['requirement'], i['responsibility'])

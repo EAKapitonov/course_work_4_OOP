@@ -54,3 +54,39 @@ class Vacancy(VacancyABC):
     @property
     def responsibility(self):
         return self._responsibility
+
+    def __lt__(self, other):  # определяет поведение оператора сравнения «меньше», <
+        if self.salary < other.salary:
+            return True
+        else:
+            return False
+
+    def __le__(self, other):  # определяет поведение оператора сравнения «меньше или равно», <=
+        if self.salary <= other.salary:
+            return True
+        else:
+            return False
+
+    def __eq__(self, other):  # определяет поведение оператора «равенства», ==.
+        if self.salary == other.salary:
+            return True
+        else:
+            return False
+
+    def __ne__(self, other):  # определяет поведение оператора «неравенства», !=.
+        if self.salary != other.salary:
+            return True
+        else:
+            return False
+
+    def __gt__(self, other):  # определяет поведение оператора сравнения «больше», >.
+        if self.salary > other.salary:
+            return True
+        else:
+            return False
+
+    def __ge__(self, other):  # определяет поведение оператора сравнения «больше или равно», >=.
+        if self.salary >= other.salary:
+            return True
+        else:
+            return False
