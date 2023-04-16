@@ -84,7 +84,7 @@ class SuperJobApi(ApiVacancy):
                     self.data_from_csv_list[i]['employer'], self.data_from_csv_list[i]['employer_url'],
                     self.data_from_csv_list[i]['requirement'], self.data_from_csv_list[i]['responsibility'])
 
-    def import_vacanсy_from_csv(self, url_file):
+    def import_vacanсy_from_csv(self, url_file="../class_from_api/superjob_vacancy.csv"):
         """
         Метод считывает ранее записанные данные в файл csv и
         добавляет данные в класс Vacancy
@@ -99,9 +99,3 @@ class SuperJobApi(ApiVacancy):
                         i['employer'], i['employer_url'],
                         i['requirement'], i['responsibility'])
 
-
-qw = SuperJobApi("россия", "учитель")
-#qw.import_vacancy_from_api()
-#qw.write_to_csv()
-qw.import_vacanсy_from_csv("../class_from_api/superjob_vacancy.csv")
-print(len(Vacancy.vacancy_list))

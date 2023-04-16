@@ -11,7 +11,7 @@ class HeadHunter(ApiVacancy):
     Класс для работы с API HH
     """
 
-    def __init__(self, text, parent_area):
+    def __init__(self, parent_area, text):
         """
         Инициализация объекта класса параметрами поиска вакансии
         """
@@ -91,7 +91,7 @@ class HeadHunter(ApiVacancy):
             for i in range(0, len(self.data_from_csv_list)):
                 writer.writerow(self.data_from_csv_list[i])
 
-    def import_vacanсy_from_csv(self, url_file):
+    def import_vacanсy_from_csv(self, url_file="../class_from_api/vacancy.csv"):
         """
         Метод считывает ранее записанные данные в файл csv и
         добавляет данные в класс Vacancy
@@ -105,15 +105,3 @@ class HeadHunter(ApiVacancy):
                         i['salary'], i['id_vacancy'],
                         i['employer'], i['employer_url'],
                         i['requirement'], i['responsibility'])
-
-
-gt = HeadHunter('учитель', 'россия')
-print(1)
-# gt.import_vacancy_from_api()
-# gt.write_to_csv()
-# print(3)
-gt.import_vacanсy_from_csv("../class_from_api/vacancy.csv")
-gt.add_to_vacancy()
-print(Vacancy.vacancy_list[1].name)
-print(Vacancy.vacancy_list[1] < Vacancy.vacancy_list[2])
-print(len(Vacancy.vacancy_list))
