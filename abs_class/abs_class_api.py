@@ -5,9 +5,9 @@ class ApiVacancy(ABC):
     Абстрактный класс для работы с Api сервисов по поиску работы
     """
     @abstractmethod
-    def write_to_csv(self):
+    def import_vacancy_from_api(self):
         """
-        Обязывает реализовать методы для добавления вакансий в csv-файл
+        Обязывает реализовать метод для импорта данных с сервера
         """
         pass
 
