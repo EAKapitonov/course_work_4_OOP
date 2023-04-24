@@ -1,6 +1,5 @@
 from class_from_api.superjob_api import SuperJobApi
 from class_from_api.headhunter_api import HeadHunter
-from vacancy.vacancy import Vacancy
 from class_json_saver.class_json_saver import JsonSaver
 
 print("Здравствуйте. Введите ключевое слово для поиска")
