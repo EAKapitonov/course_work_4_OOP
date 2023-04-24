@@ -7,12 +7,10 @@ class Vacancy(VacancyABC):
     вакансии, ссылка на вакансию, зарплата, краткое описание или требования и т.п. (не менее четырех) Класс должен
     поддерживать методы сравнения вакансий между собой по зарплате и валидировать данные, которыми инициализируются
     его атрибуты.
-   ❌	Инициализатор валидирует добавляемые значения
     """
 
     __slots__ = ("_name", "_url", "_salary", "_id_vacancy", "_empl",
                  "_employer_url", "_requirement", "_responsibility")
-    vacancy_list = []
 
     def __init__(self, name, url, salary, id_vacancy, empl, employer_url, requirement, responsibility):
         self._name = name  # название вакансии
@@ -23,7 +21,6 @@ class Vacancy(VacancyABC):
         self._employer_url = employer_url  # ссылка на карточку работодателя
         self._requirement = requirement  # требования вакансии к работнику
         self._responsibility = responsibility  # обязанности должности
-        Vacancy.vacancy_list.append(self)
 
     def __repr__(self):
         return f"Объект класса {self.__class__.__name__}, вакансия -  {self._name}"
@@ -33,7 +30,7 @@ class Vacancy(VacancyABC):
 
     def format_to_dict(self) -> dict:
         """Переформатируем экземпляр класса для сохранения в файл"""
-        state = {"_name": self._name, "url": self._url, "_salary": self._salary, "_id_vacancy": self._id_vacancy,
+        state = {"_name": self._name, "_url": self._url, "_salary": self._salary, "_id_vacancy": self._id_vacancy,
                  "_employer": self._employer, "_employer_url": self._employer_url, "_requirement": self._requirement,
                  "_responsibility": self._responsibility}
         return state
@@ -41,14 +38,8 @@ class Vacancy(VacancyABC):
     @classmethod
     def reformat_from_dict(cls, state: dict):
         """Восстанавливаем экземпляр класса из файла"""
-        Vacancy(state["_name"],
-                state["url"],
-                int(state["_salary"]),
-                int(state["_id_vacancy"]),
-                state["_employer"],
-                state["_employer_url"],
-                state["_requirement"],
-                state["_responsibility"])
+        return Vacancy(state["_name"], state["_url"], int(state["_salary"]), int(state["_id_vacancy"]),
+                       state["_employer"], state["_employer_url"], state["_requirement"], state["_responsibility"])
 
     @property
     def name(self):
@@ -76,7 +67,7 @@ class Vacancy(VacancyABC):
 
     @property
     def requirement(self):
-        return self.requirement
+        return self._requirement
 
     @property
     def responsibility(self):

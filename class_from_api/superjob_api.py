@@ -2,7 +2,6 @@ import os
 from abs_class.abs_class_api import ApiVacancy
 import json
 import requests
-from vacancy.vacancy import Vacancy
 
 
 class SuperJobApi(ApiVacancy):
@@ -76,13 +75,8 @@ class SuperJobApi(ApiVacancy):
             items["responsibility"] = self.list_data_dict[i]['vacancyRichText']  # сохранение обязанностей вакансии
             self.data_from_vacancy.append(items)
 
-
-    def add_to_vacancy(self) -> None:
+    def get_to_vacancy(self):
         """
-        Метод добавляет данные в класс Вакансии
+        Метод возвращает полученные данные с API
         """
-        for i in range(0, len(self.data_from_vacancy)):
-            Vacancy(self.data_from_vacancy[i]['name'], self.data_from_vacancy[i]['url'],
-                    self.data_from_vacancy[i]['salary'], self.data_from_vacancy[i]['id_vacancy'],
-                    self.data_from_vacancy[i]['employer'], self.data_from_vacancy[i]['employer_url'],
-                    self.data_from_vacancy[i]['requirement'], self.data_from_vacancy[i]['responsibility'])
+        return self.data_from_vacancy

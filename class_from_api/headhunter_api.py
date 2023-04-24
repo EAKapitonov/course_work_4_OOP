@@ -2,7 +2,6 @@ from abs_class.abs_class_api import ApiVacancy
 import json
 import requests
 import time
-from vacancy.vacancy import Vacancy
 
 
 class HeadHunter(ApiVacancy):
@@ -38,7 +37,6 @@ class HeadHunter(ApiVacancy):
         Метод получения данных через API по указанным параметрам
         """
         try:
-            list_data_dict = []
             for i in range(1, 2):
                 page = i
                 param = {'text': self.text,
@@ -81,13 +79,8 @@ class HeadHunter(ApiVacancy):
                 'responsibility']  # сохранение обязанностей вакансии
             self.data_from_vacancy.append(items)
 
-
-    def add_to_vacancy(self) -> None:
+    def get_to_vacancy(self):
         """
-        Метод добавляет данные в класс Вакансии
+        Метод возвращает полученные данные с API
         """
-        for i in range(0, len(self.data_from_vacancy)):
-            Vacancy(self.data_from_vacancy[i]['name'], self.data_from_vacancy[i]['url'],
-                    self.data_from_vacancy[i]['salary'], self.data_from_vacancy[i]['id_vacancy'],
-                    self.data_from_vacancy[i]['employer'], self.data_from_vacancy[i]['employer_url'],
-                    self.data_from_vacancy[i]['requirement'], self.data_from_vacancy[i]['responsibility'])
+        return self.data_from_vacancy
