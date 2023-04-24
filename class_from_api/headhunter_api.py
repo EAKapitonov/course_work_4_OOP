@@ -37,7 +37,7 @@ class HeadHunter(ApiVacancy):
         Метод получения данных через API по указанным параметрам
         """
         try:
-            for i in range(1, 2):
+            for i in range(1, 11):
                 page = i
                 param = {'text': self.text,
                          # Переданное значение ищется в полях вакансии, указанных в параметре search_field
@@ -62,14 +62,17 @@ class HeadHunter(ApiVacancy):
             items = {}
             items["name"] = self.list_data_dict[i]["name"]
             items["url"] = self.list_data_dict[i]["alternate_url"]
-            if isinstance(self.list_data_dict[i]["salary"], int):
-                items["salary"] = self.list_data_dict[i]["salary"]["from"]
+            if isinstance(self.list_data_dict[i]["salary"], dict):
+                if isinstance(self.list_data_dict[i]["salary"]["from"], int):
+                    items["salary"] = self.list_data_dict[i]["salary"]["from"]
+                else:
+                    items["salary"] = 0
             else:
-                items["salary"] = 0
+                continue
             items["id_vacancy"] = self.list_data_dict[i]["id"]
-            if "emlopyer" in self.list_data_dict[i].keys():
-                items["employer"] = self.list_data_dict[i]["emlopyer"]["name"]  # сохранение имени работодателя
-                items["employer_url"] = self.list_data_dict[i]["emlopyer"][
+            if "employer" in self.list_data_dict[i]:
+                items["employer"] = self.list_data_dict[i]["employer"]["name"]  # сохранение имени работодателя
+                items["employer_url"] = self.list_data_dict[i]["employer"][
                     "alternate_url"]  # сохранение ссылки на карточку работодателя
             else:
                 items["employer"] = "нет данных"  # сохранение имени работодателя

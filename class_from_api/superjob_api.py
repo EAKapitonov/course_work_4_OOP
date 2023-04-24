@@ -36,7 +36,7 @@ class SuperJobApi(ApiVacancy):
         Метод получения данных через API по указанным параметрам
         """
         try:
-            for i in range(1, 2):
+            for i in range(1, 6):
                 param = {'keywords': self.args,
                          # Переданное значение ищется в полях вакансии, указанных в параметре search_field
                          'page': i,  # Параметры пагинации. Параметр per_page ограничен значением в 100
@@ -64,10 +64,9 @@ class SuperJobApi(ApiVacancy):
             else:
                 items["salary"] = 0
             items["id_vacancy"] = self.list_data_dict[i]["id"]
-            if "emlopyer" in self.list_data_dict[i].keys():
-                items["employer"] = self.list_data_dict[i]["client"]["title"]  # сохранение имени работодателя
-                items["employer_url"] = self.list_data_dict[i]["client"][
-                    "link"]  # сохранение ссылки на карточку работодателя
+            if "firm_name" in self.list_data_dict[i]:
+                items["employer"] = self.list_data_dict[i]["firm_name"]  # сохранение имени работодателя
+                items["employer_url"] = self.list_data_dict[i]["link"]  # сохранение ссылки на карточку работодателя
             else:
                 items["employer"] = "нет данных"  # сохранение имени работодателя
                 items["employer_url"] = "нет данных"  # сохранение ссылки на карточку работодателя
