@@ -1,4 +1,5 @@
 import os
+import sys
 from abs_class.abs_class_api import ApiVacancy
 import json
 import requests
@@ -29,7 +30,8 @@ class SuperJobApi(ApiVacancy):
             if list_countries[i]["title"] == parent_area.capitalize():
                 return list_countries[i]["id"]  # сохраняем id указанной страны
         if self.parent_area is None:  # Проверяем найдено-ли указанная страна
-            ValueError
+            print("Указанная страна не найдена, перезагрузите программу и попробуйте снова")
+            sys.exit()
 
     def import_vacancy_from_api(self):
         """
@@ -49,7 +51,8 @@ class SuperJobApi(ApiVacancy):
                 data_dict = json.loads(data)
                 self.list_data_dict.extend(data_dict['objects'])  # сохраняем ответ API 1000 вакансий результатов поиска
         except ValueError:
-            print("Ошибка")
+            print("Ошибка значения, попробуйте снова")
+            sys.exit()
 
     def response_format(self):
         """

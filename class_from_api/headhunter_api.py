@@ -1,4 +1,5 @@
 from abs_class.abs_class_api import ApiVacancy
+import sys
 import json
 import requests
 import time
@@ -30,7 +31,8 @@ class HeadHunter(ApiVacancy):
             if data_dict_country[i]["name"] == parent_area.capitalize():
                 return int(data_dict_country[i]["id"])  # сохранение в атрибут id указанной страны
         if self.parent_area is None:  # Проверяем найдено-ли указанная страна
-            ValueError
+            print("Указанная страна не найдена, перезагрузите программу и попробуйте снова")
+            sys.exit()
 
     def import_vacancy_from_api(self):
         """
@@ -52,7 +54,8 @@ class HeadHunter(ApiVacancy):
                 self.list_data_dict.extend(data_dict['items'])
                 time.sleep(0.25)
         except ValueError:
-            print("Ошибка")
+            print("Ошибка значения, попробуйте снова")
+            sys.exit()
 
     def response_format(self):
         """
