@@ -28,9 +28,10 @@ class JsonSaver:
         Сохраняет в файл объекты класса Vacancy, преобразовав их в словарь для записи в json
         """
         with open(f"{self.__filename}.json", 'w', encoding='utf-8') as file:
-            for i in range(0, 10):
-                item = Vacancy.vacancy_list[i]
-                json.dump(item, file, ensure_ascii=False, indent="")
+            list_dict = []
+            for i in Vacancy.vacancy_list:
+                list_dict.append(i.format_to_dict())
+            json.dump(list_dict, file, ensure_ascii=False, indent="")
 
     def import_from_file(self):
         """
@@ -38,8 +39,8 @@ class JsonSaver:
         """
         with open(f"{self.__filename}.json", 'r', encoding='utf-8') as file:
             data = file.read()
-            for i in data:
-                print(i)
+            list_dict = json.loads(data)
+            for i in list_dict:
                 Vacancy.reformat_from_dict(i)
 
 

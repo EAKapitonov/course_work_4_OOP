@@ -3,7 +3,7 @@ from class_from_api.headhunter_api import HeadHunter
 from vacancy.vacancy import Vacancy
 from class_json_saver.class_json_saver import JsonSaver
 
-print("Здравствуйте. Введите ключевое слово для поиска")
+"""print("Здравствуйте. Введите ключевое слово для поиска")
 text = input()
 print("Введите страну где искать вакансии")
 country = input()
@@ -19,8 +19,11 @@ hh.add_to_vacancy()  # создаем объекты класса Vacancy
 print(len(Vacancy.vacancy_list))  # Проверяем создание объектов класса Vacancy, выдоим общее количество
 sj.add_to_vacancy()  # создаем объекты класса Vacancy
 print(len(Vacancy.vacancy_list))  # Проверяем создание объектов класса Vacancy, выдоим общее количество
-jso = JsonSaver("Jso")
-jso.add_vacancy()
+print(Vacancy.vacancy_list[1])
+print(Vacancy.vacancy_list[150])"""
 
-"""jso = JsonSaver("Jso")
-jso.import_from_file()"""
+jso = JsonSaver("Jso")
+#jso.add_vacancy()
+print(len(Vacancy.vacancy_list))
+jso.import_from_file()
+print(len(Vacancy.vacancy_list))

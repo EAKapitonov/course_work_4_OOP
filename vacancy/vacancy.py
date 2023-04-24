@@ -41,14 +41,14 @@ class Vacancy(VacancyABC):
     @classmethod
     def reformat_from_dict(cls, state: dict):
         """Восстанавливаем экземпляр класса из файла"""
-        cls.__init__(state["_name"],
-                     state["url"],
-                     int(state["_salary"]),
-                     int(state["_id_vacancy"]),
-                     state["_employer"],
-                     state["_employer_url"],
-                     state["_requirement"],
-                     state["_responsibility"])
+        Vacancy(state["_name"],
+                state["url"],
+                int(state["_salary"]),
+                int(state["_id_vacancy"]),
+                state["_employer"],
+                state["_employer_url"],
+                state["_requirement"],
+                state["_responsibility"])
 
     @property
     def name(self):
