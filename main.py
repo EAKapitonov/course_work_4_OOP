@@ -17,9 +17,16 @@ print(f"Импорт с SJ завершено удачно. Найдено -{len
 jso = JsonSaver("Jso")  # Создаем объект класса JsonSaver
 jso.import_from_api(hh, sj)  # создаем объекты класса Vacancy
 print(f"Найдено всего {len(jso.vacancy_list)} вакансий")  # Проверяем создание объектов класса Vacancy
-jso.add_vacancy()  # сохраняем в файл вакансии
+jso.save_vacancies()  # сохраняем в файл вакансии
 print("Вакансии успешно сохранены в файл")
-print(jso.check_file())
+
+try:
+    if jso.check_file():
+        print("Файл корректный")
+except FileNotFoundError:
+    print("Ошибка файл не создан или не найден")
+except ValueError:
+    print("Файл с вакансиями имеет не корректные данные")
 
 """ Импортируем данные с сохраненного файла"""
 print()

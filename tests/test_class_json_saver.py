@@ -9,7 +9,7 @@ def json_saver():
     return json_test
 
 
-def test_add_vacancy(json_saver):
+def test_save_vacancies(json_saver):
     assert len(json_saver.vacancy_list) == 1352
     assert json_saver.top_salary()[0].salary == 4500000000000000000000000000
 

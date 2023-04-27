@@ -19,7 +19,7 @@ class JsonSaver(JsonSaverAbs):
     def filename(self):
         return self.__filename
 
-    def add_vacancy(self):
+    def save_vacancies(self):
         """
         Сохраняет в файл объекты класса Vacancy, преобразовав их в словарь для записи в json
         """
@@ -60,22 +60,8 @@ class JsonSaver(JsonSaverAbs):
         """
         Возвращает список из ТОП-5 самых высокооплачиваемых вакансий реализовано
         """
-        top_5 = self.vacancy_list[:5]
-        for i in self.vacancy_list:
-            if i > top_5[0]:
-                top_5.insert(0, i)
-            else:
-                if i > top_5[1]:
-                    top_5.insert(1, i)
-                else:
-                    if i > top_5[2]:
-                        top_5.insert(2, i)
-                    else:
-                        if i > top_5[3]:
-                            top_5.insert(3, i)
-                        else:
-                            if i > top_5[4]:
-                                top_5.insert(4, i)
+        top_5 = self.vacancy_list
+        top_5.sort(key=lambda x: x.salary, reverse=True)
         return top_5[:5]
 
     def search_vacancy(self, text):
@@ -87,14 +73,12 @@ class JsonSaver(JsonSaverAbs):
             if text in i.name:
                 search_vacancy.append(i)
                 continue
-            if i.requirement is not None:
-                if text in i.requirement:
-                    search_vacancy.append(i)
-                    continue
-            if i.responsibility is not None:
-                if text in i.responsibility:
-                    search_vacancy.append(i)
-                    continue
+            elif i.requirement is not None and text in i.requirement:
+                search_vacancy.append(i)
+                continue
+            elif i.responsibility is not None and text in i.responsibility:
+                search_vacancy.append(i)
+                continue
         return search_vacancy
 
     def del_vacancy(self, id_vacancy):
@@ -121,11 +105,11 @@ class JsonSaver(JsonSaverAbs):
                                     '_requirement', '_responsibility']
                         for i in list_key:
                             if i not in list_dict[0]:
-                                return "Файл имеет не корректные данные"
-                        return "Файл корректный"
+                                raise ValueError
+                        return True
                     else:
-                        return "Файл имеет не корректные данные"
+                        raise ValueError
                 else:
-                    return "Файл имеет не корректные данные"
+                    raise ValueError
         else:
-            return "Файл не существует"
+            raise FileNotFoundError

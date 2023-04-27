@@ -9,7 +9,7 @@ class JsonSaverAbs(ABC):
     """
 
     @abstractmethod
-    def add_vacancy(self):
+    def save_vacancies(self):
         """
         Сохраняет в файл объекты класса Vacancy, преобразовав их в словарь для записи в json
         """
